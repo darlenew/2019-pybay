@@ -68,10 +68,7 @@ def pytest_collection_modifyitems(session, config, items):
                 quoting=csv.QUOTE_MINIMAL)
             writer.writerow(["title", "description", "markers"])
             for item in items:
-                if item.cls:
-                    title = f"{item.module.__name__}.py::{item.cls.__name__}::{item.name}"
-                else:
-                    title = f"{item.module.__name__}.py::{item.name}"
+                title = item.nodeid
                 description = re.sub('\n\s+', '\n', item.obj.__doc__.strip())
                 markers = ','.join([m.name for m in item.iter_markers()])
 
